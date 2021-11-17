@@ -12,7 +12,7 @@ make_cardsV2(CardsList) :-
 
 make_cards(Cards) :-
     make_cards_list(CardsList),
-    make_cards_faces(Cardslist,Cards).
+    make_cards_faces(CardsList,Cards).
 
 write_list([]).
 write_list([H|T]) :-
@@ -24,7 +24,7 @@ make_cards(CardsList) :-
     setof([S,F],(faces(L1),
                 member(F,L1),
                  suites(L2),
-                 member(S,L2)), CardList).
+                 member(S,L2)), CardsList).
 
 
 make_card_faces([],[]).
@@ -40,8 +40,8 @@ make_card_faces([Element|T], [Card|OtherCards]) :-
 
 build_cards([],_,[]).
 build_cards([Suite|OtherSuites],FaceList,[FaceList|Rest]) :-
-    makesuite(suite,FaceList,FaceSuite),
-    build_cards(otherSuites,FaceList,Rest).
+    makesuite(Suite,FaceList,OtherSuites),
+    build_cards(OtherSuites,FaceList,Rest).
 
 make_suite(_,[],[]).
 make_suite(S,[F|T],[Card|Rest]) :-
